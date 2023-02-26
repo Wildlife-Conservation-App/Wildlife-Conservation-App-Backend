@@ -8,7 +8,8 @@ from __init__ import app, db
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
+class InvalidInput(Exception):
+    pass
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -17,6 +18,8 @@ class User(db.Model):
     _username = db.Column(db.Text, unique=True, nullable=False)
     _fullname = db.Column(db.Text, unique=False, nullable=False)
     _password = db.Column(db.Text, unique=False, nullable=False)
+    _points = db.Column(db.Integer, unique=False, nullable=False)
+    _level = db.Column(db.Integer, unique=False, nullable=False)
 
 
     def __init__(self, username, fullname, password="letmein", grade=9):
@@ -24,6 +27,8 @@ class User(db.Model):
         self._fullname = fullname
         self.set_password(password)
         self._grade = grade
+        self._points = 0
+        self._level = 0
 
     @property
     def username(self):
@@ -43,6 +48,28 @@ class User(db.Model):
     @fullname.setter
     def fullname(self, fullname):
         self._fullname = fullname
+
+    @property
+    def points(self):
+        return self._points
+    
+    def addPoints(self, qty):
+        if type(qty) == int:
+            self._points += qty
+            while self._points > 100:
+                self.incrementLevel()
+                self._points-=100
+        else:
+            raise InvalidInput
+
+    def incrementLevel(self):
+        self._level += 1
+
+
+    @property
+    def level(self):
+        return self._level
+    
     
     @property
     def password(self):
@@ -119,3 +146,10 @@ def initUsers():
             '''fails with bad or duplicate data'''
             db.session.remove()
             print(f"Records exist, duplicate email, or error: {user.uid}")
+
+    print(u1.points)
+
+# Test out created methods
+if __name__ == "__main__":
+    initUsers()
+    
