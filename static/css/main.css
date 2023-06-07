@@ -1,0 +1,76 @@
+html, body {
+    background-image: linear-gradient(90deg, #00c3b6, #00dd88, #06da57);
+    background-size: 800% 800%;
+    animation: main-gradient 15s ease infinite;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+header, footer {
+    flex-shrink: 0;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+main {
+    flex-shrink: 0;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    padding-left:10%;
+    padding-right:10%;
+    
+}
+
+main {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.slogan {
+    background-color: white;
+    border-radius: 15px;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    background: rgba( 255, 255, 255, 0.35 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+@keyframes main-gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	20% {
+		background-position: 50% 50%;
+	}
+	40% {
+		background-position: 100% 50%;
+	}
+    60% {
+		background-position: 50% 50%;
+	}
+    100% {
+		background-position: 0% 50%;
+	}
+}
+
+.slogan-text {
+    padding-left: 10%;
+    opacity: 1 !important; 
+}
